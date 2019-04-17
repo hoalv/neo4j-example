@@ -17,9 +17,7 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-*.properties
-**.properties
-**/*.properties
+
 !sonar-project.properties
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
