@@ -7,6 +7,8 @@ import org.neo4j.ogm.cypher.Filters;
 import org.neo4j.ogm.session.Session;
 import tima.global.entities.Movie;
 import tima.neo4j.conn.Neo4jSessionFactory;
+import tima.neo4j.crud.MovieCrudService;
+import tima.neo4j.crud.UserCrudService;
 
 import java.util.*;
 
@@ -18,11 +20,11 @@ public class OgmMainApp {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
 
         /*//load by native id of neo4j
-        Movie movie = session.load(Movie.class, 0l);*/
-
+        Movie movie = session.load(Movie.class, 0l);
+*/
         /*//load by filter by property of node
         Filter filter = new Filter("title", ComparisonOperator.EQUALS,"Toy Story (1995)");
-        List<Movie> movies = (List<Movie>) session.loadAll(Movie.class, filter);
+        List<Movie> movies = (List<Movie>) new MovieCrudService().findBySingleFilter(session, filter);
         movies.forEach(m -> {
             System.out.println(m.getTitle());
 
@@ -30,13 +32,13 @@ public class OgmMainApp {
 
         //  load by mutil property
         Filters composite = new Filters();
-        Filter filter = new Filter ("id", ComparisonOperator.EQUALS, 1);
+        Filter filter = new Filter ("id", ComparisonOperator.EQUALS, 3);
         composite.add(filter);
         filter = new Filter ("title", ComparisonOperator.EQUALS, "Toy Story (1995)");
-        filter.setBooleanOperator(BooleanOperator.AND);
+        filter.setBooleanOperator(BooleanOperator.OR);
         composite.add(filter);
         //  Load all Persons which match the composite filter.
-        List<Movie> movieList = (List<Movie>) session.loadAll (Movie.class, composite);
+        List<Movie> movieList = (List<Movie>) new MovieCrudService().findByCompositeFilter(session, composite);
         movieList.forEach(m -> {
             System.out.println(m.getTitle());
         });
@@ -47,7 +49,7 @@ public class OgmMainApp {
         params.put ("id", 1);
         //  Execute query and return the other side of the married relationship
         String cypher = "MATCH (m:Movie {title:$title , id:$id}) RETURN m";
-        List<Movie> movieList = (List<Movie>) session.query (Movie.class, cypher, params);
+        List<Movie> movieList = (List<Movie>) new MovieCrudService().cypherQuery(session, cypher, params);
         movieList.forEach(m -> {
             System.out.println(m.getTitle());
         });*/
