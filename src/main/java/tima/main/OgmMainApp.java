@@ -1,4 +1,4 @@
-package tima;
+package tima.main;
 
 import org.neo4j.ogm.cypher.BooleanOperator;
 import org.neo4j.ogm.cypher.ComparisonOperator;
@@ -6,6 +6,7 @@ import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.cypher.Filters;
 import org.neo4j.ogm.session.Session;
 import tima.global.entities.Movie;
+import tima.global.entities.User;
 import tima.neo4j.conn.Neo4jSessionFactory;
 import tima.neo4j.crud.MovieCrudService;
 import tima.neo4j.crud.UserCrudService;
@@ -20,8 +21,8 @@ public class OgmMainApp {
         Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
 
         /*//load by native id of neo4j
-        Movie movie = session.load(Movie.class, 0l);
-*/
+        Movie movie = session.load(Movie.class, 0l, 0);*/
+
         /*//load by filter by property of node
         Filter filter = new Filter("title", ComparisonOperator.EQUALS,"Toy Story (1995)");
         List<Movie> movies = (List<Movie>) new MovieCrudService().findBySingleFilter(session, filter);

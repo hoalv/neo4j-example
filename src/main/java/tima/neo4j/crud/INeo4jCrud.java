@@ -7,7 +7,7 @@ import org.neo4j.ogm.session.Session;
 import java.util.Map;
 
 
-public interface ICrudService<T> {
+public interface INeo4jCrud<T> {
 
     Iterable<T> findAll(Session session);
 

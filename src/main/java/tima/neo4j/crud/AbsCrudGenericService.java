@@ -7,11 +7,13 @@ import org.neo4j.ogm.session.Session;
 import java.util.Map;
 
 
-public abstract class AbsCrudGenericService<T> implements ICrudService<T> {
+public abstract class AbsCrudGenericService<T> implements INeo4jCrud<T> {
 
     private static final int DEPTH_LIST = 0;
-    private static final int DEPTH_ENTITY = 1;
+    private static final int DEPTH_ENTITY = 2;
 //    protected Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+
+    abstract Class<T> getEntityType();
 
     @Override
     public Iterable<T> findAll(Session session) {
@@ -48,7 +50,5 @@ public abstract class AbsCrudGenericService<T> implements ICrudService<T> {
     public Iterable<T> cypherQuery(Session session, String cypher, Map<String, Object> params) {
         return session.query(getEntityType(), cypher, params);
     }
-
-    abstract Class<T> getEntityType();
 }
 

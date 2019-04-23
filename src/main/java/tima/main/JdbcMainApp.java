@@ -1,4 +1,4 @@
-package tima;
+package tima.main;
 
 import org.json.JSONObject;
 
